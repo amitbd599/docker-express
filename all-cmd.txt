@@ -1,0 +1,134 @@
+
+
+=> Create a Dockerfile
+
+    FROM node:16
+    WORKDIR /app
+    COPY package*.json ./
+    RUN npm install
+    COPY . ./
+    EXPOSE 8000
+    CMD [ "npm", "run", "dev" ]
+
+    ------ Dockerfile Commands ------
+    FROM: Specifies the base image.
+    COPY: Copies files from the host to the image.
+    RUN: Executes a command in the container.
+    CMD: Specifies the command to run when the container starts.
+    EXPOSE: Informs Docker that the container listens on the specified network ports at runtime.
+    ENV: Sets environment variables.
+    WORKDIR: Sets the working directory inside the container.
+
+
+
+
+=> package.json add data
+
+    {
+        "name": "new-folder",
+        "version": "1.0.0",
+        "main": "index.js",
+        "scripts": {
+            "start": "node index.js",
+            "dev": "nodemon --legacy-watch index.js"
+        },
+        "keywords": [],
+        "author": "",
+        "license": "ISC",
+        "description": "",
+        "dependencies": {
+            "express": "^4.19.2"
+        },
+        "devDependencies": {
+            "nodemon": "^3.1.4"
+        }
+    }
+
+
+
+----------------"CMD"----------------
+=> Docker Basics
+
+-> `docker --version`: Check the Docker version installed on your system.
+-> `docker info`: Display system-wide information about Docker.
+
+
+=> Docker Images
+
+-> `docker images`: List all images on your local machine.
+-> `docker pull [image_name]`: Download an image from the Docker registry (e.g., Docker Hub).
+-> `docker build -t [image_name]:[tag] .` : Build an image from a Dockerfile in the current directory.
+-> `docker rmi [image_id]` : Remove an image by its ID.
+
+
+=> Docker Containers
+
+-> `docker ps` : List all running containers.
+-> `docker ps -a` : List all containers (both running and stopped).
+-> `docker run [image_name]` : Create and start a container from an image.
+-> `docker run -d [image_name]` : Run a container in detached mode.
+-> `docker run -it [image_name]` : Run a container in interactive mode with a terminal.
+-> `docker run -p [host_port]:[container_port] [image_name]` : Map a host port to a container port. // docker run -p [host_port]:[container_port] [image_name]
+-> `docker stop [container_id]` : Stop a running container.
+-> `docker start [container_id]` : Start a stopped container.
+-> `docker restart [container_id]` : Restart a container.
+-> `docker rm [container_id]` : Remove a stopped container.
+-> `docker logs [container_id]` : Fetch the logs of a container.
+-> `docker exec -it [container_id] /bin/bash` : Access a running container's shell.
+
+-> Run with location, port, container, image
+    // docker run -v "$(pwd):/app" -p 8000:8000 -d --name node-app node-app-image
+
+    here, $(pwd) = current directory
+            /app = directory inside the Docker container
+
+
+=> Docker Volumes
+
+-> `docker volume create [volume_name]` : Create a new volume.
+-> `docker volume ls` : List all volumes.
+-> `docker volume inspect [volume_name]` : Display detailed information about a volume.
+-> `docker volume rm [volume_name]` : Remove a volume.
+
+
+=> Docker Networks
+
+-> `docker network create [network_name]` : Create a new network.
+-> `docker network ls` : List all networks.
+-> `docker network inspect [network_name]` : Display detailed information about a network.
+-> `docker network connect [network_name] [container_id]` : Connect a container to a network.
+-> `docker network disconnect [network_name] [container_id]` : Disconnect a container from a network.
+
+
+=> Docker Compose
+
+-> `docker-compose up` : Create and start containers defined in a docker-compose.yml file.
+-> `docker-compose down` : Stop and remove containers, networks, images, and volumes defined in a docker-compose.yml file.
+-> `docker-compose build` : Build or rebuild services defined in a docker-compose.yml file.
+-> `docker-compose logs` : View output from containers defined in a docker-compose.yml file.
+-> `docker-compose exec [service_name] [command]` : Execute a command in a running service container.
+
+
+=> Dockerfile Commands
+
+    FROM: Specifies the base image.
+    COPY: Copies files from the host to the image.
+    RUN: Executes a command in the container.
+    CMD: Specifies the command to run when the container starts.
+    EXPOSE: Informs Docker that the container listens on the specified network ports at runtime.
+    ENV: Sets environment variables.
+    WORKDIR: Sets the working directory inside the container.
+
+
+=> Advanced Docker Commands
+
+-> `docker system prune` : Remove all stopped containers, unused networks, dangling images, and build cache.
+-> `docker inspect [container_id]` : Return low-level information on Docker objects.
+-> `docker stats` : Display a live stream of container(s) resource usage statistics.
+
+
+=> For MERN Stack Development
+
+-> `docker run -v [host_directory]:[container_directory] -p [host_port]:[container_port] [image_name]` : Run a container with volume mapping and port forwarding, useful for mounting code directories.
+    // docker run -v "$(pwd):/app" -p 8000:8000 -d --name node-app node-app-image
+-> `docker-compose.yml` : A typical docker-compose.yml file for a MERN stack might define services for MongoDB, Node.js (Express), and a React front-end.
