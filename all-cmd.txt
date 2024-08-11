@@ -91,6 +91,7 @@
 -> `docker volume rm [volume_name]` : Remove a volume.
 
 
+
 => Docker Networks
 
 -> `docker network create [network_name]` : Create a new network.
@@ -103,7 +104,10 @@
 => Docker Compose
 
 -> `docker-compose up` : Create and start containers defined in a docker-compose.yml file.
+    // docker-compose up -d  // builds images for the requested services if these aren't present already.  
+    // docker-compose up -d --build // 
 -> `docker-compose down` : Stop and remove containers, networks, images, and volumes defined in a docker-compose.yml file.
+    // docker-compose down -v   // Stop and remove containers, networks, images, and volumes
 -> `docker-compose build` : Build or rebuild services defined in a docker-compose.yml file.
 -> `docker-compose logs` : View output from containers defined in a docker-compose.yml file.
 -> `docker-compose exec [service_name] [command]` : Execute a command in a running service container.
@@ -131,4 +135,13 @@
 
 -> `docker run -v [host_directory]:[container_directory] -p [host_port]:[container_port] [image_name]` : Run a container with volume mapping and port forwarding, useful for mounting code directories.
     // docker run -v "$(pwd):/app" -p 8000:8000 -d --name node-app node-app-image
+    // docker run -v "$(pwd):/app" -v /app/node_modules  --env-file ./.env  -p 3000:8000 -d --name node-app node-app-image  //with create volume.
+    // docker exec -it docker-express-node-app bash  // go to IMAGE directory
 -> `docker-compose.yml` : A typical docker-compose.yml file for a MERN stack might define services for MongoDB, Node.js (Express), and a React front-end.
+
+
+=> Connect MongoDB
+    // docker exec -it docker-express-mongo-1 bash   //docker exec -it <container_id/name> bash
+    // mongosh -u "username" -p "password" // for login in MongoDB
+
+    
